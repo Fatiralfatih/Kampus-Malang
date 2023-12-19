@@ -16,9 +16,9 @@ class DashboardController extends Controller
             $mahasiswaCount = $pendaftaran->pivot->count();
         }
         return view('admin.dashboard', [
-            'usersCount' => $userCount,
-            'kampusCount' => $kampusCount,
-            'mahasiswaCount' => $mahasiswaCount,
+            'usersCount' => $userCount ?? '0',
+            'kampusCount' => $kampusCount ?? '0',
+            'mahasiswaCount' => $mahasiswaCount ?? '0',
         ]);
     }
 }

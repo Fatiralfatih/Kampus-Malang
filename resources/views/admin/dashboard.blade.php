@@ -28,7 +28,7 @@
                                 <span class="avatar-initial rounded bg-label-success">
                                     <i class="mdi mdi-account-multiple-plus"></i></span>
                             </div>
-                            <h4 class="ms-1 mb-0 display-6"> {{$mahasiswaCount}} </h4>
+                            <h4 class="ms-1 mb-0 display-6"> {{ $mahasiswaCount }} </h4>
                         </div>
                         <p class="mb-0 text-heading">Data Mahasiswa</p>
                     </div>

@@ -48,7 +48,8 @@ class KampusController extends Controller
     {
         try {
             $kampus = app(CreateKampus::class)->execute($request);
-            app(CreateKontak::class)->execute($request, $kampus);
+            $fakultas = app(CreateKontak::class)->execute($request, $kampus);
+            return $fakultas;
             app(CreateFakultas::class)->execute($request, $kampus);
             return redirect()->route('admin.kampus')->with('success', 'kampus berhasil ditambahkan');
         } catch (\Exception $e) {
