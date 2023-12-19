@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
+        'status',
+        'role'
     ];
 
     /**
@@ -42,4 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    function pendaftaran()
+    {
+        return $this->BelongsToMany(Jurusan::class, 'pendaftarans', 'member_id', 'jurusan_id')
+            ->withPivot(['id', 'status'])
+            ->withTimestamps();
+    }
 }
