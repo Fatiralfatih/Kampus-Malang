@@ -50,9 +50,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Data kontak for admin
     Route::prefix('admin/kontak')->group(function () {
-        Route::get('{kampus}', [KontakController::class, 'navItem'])->name('admin.kontak');
-        Route::post('tambah/{kampus}', [KontakController::class, 'store'])->name('admin.kampus.tambah.kontak');
-        Route::put('edit/{kampus}', [KontakController::class, 'update'])->name('admin.kampus.edit.kontak');
+        Route::get('/{kampus}', [KontakController::class, 'navItem'])->name('admin.kontak');
+        Route::post('/tambah/{kampus}', [KontakController::class, 'store'])->name('admin.kampus.tambah.kontak');
+        Route::put('/edit/{kampus}', [KontakController::class, 'update'])->name('admin.kampus.edit.kontak');
     });
 
     // data fakultas kampus for admin
