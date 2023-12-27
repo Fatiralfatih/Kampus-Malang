@@ -26,7 +26,9 @@ class PengunjungController extends Controller
 
     function detail(Kampus $kampus)
     {
-        $jurusans = Jurusan::with(['fakultas.kampus'])->latest()->get();
+        $jurusans = Jurusan::with(['fakultas.kampus', 'pendaftaran' => function ($query) {
+            $query->where('member_id', Auth::id());
+        }])->latest()->get();
         return view('pengunjung.kampus.detail', [
             'kampus' => $kampus,
             'jurusans' => $jurusans,

@@ -1,132 +1,221 @@
 <x-pengunjung-layout>
-    <!-- end navbar -->
-    @if (!request('search'))
-        <!-- hero section -->
-        <section class="dark:bg-gray-950 dark:text-white pt-32 pb-12">
-            <div class="container">
-                <div class="self-center w-full">
-                    <h1 class="text-[30px] text-center font-bold font-sans md:mt-4 md:text-[40px] lg:text-[50px]">
-                        University.<span class="text-indigo-700">JAWA</span>
-                    </h1>
-                    <h3 class="text-center text-[15px] font-sans md:text-2xl lg:text-3xl">
-                        Platform to find University in Malang dan
-                    </h3>
-                    <h4 class="text-center font-sans text-[15px] md:text-[20px] lg:text-[25px]">
-                        Jadilah Mahasiswa Cogil 🚀
-                    </h4>
-                    <div class="mt-5 text-center">
-                        <div class="justify-between">
-                            <button class="px-3 py-1 text-[15px] shadow__btn rounded-md bg-indigo-600 md:text-[20px]">
-                                #AKUMAINBERSIH 👀
-                            </button>
+    {{-- nootifikasi --}}
+    <x-navbar>
+        @auth
+            <!-- Notification -->
+            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-2 me-xl-1">
+                <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow"
+                    href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="mdi mdi-bell-outline mdi-24px"></i>
+                    <span
+                        class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end py-0">
+                    <li class="dropdown-menu-header border-bottom">
+                        <div class="dropdown-header d-flex align-items-center py-3">
+                            <h6 class="mb-0 me-auto text-sm">Notifikasi</h6>
+                            {{-- <span class="badge rounded-pill bg-label-primary">asdasd</span> --}}
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--  -->
+                    </li>
+                    <li class="dropdown-notifications-list scrollable-container">
+                        @if (count($jurusans) >= 1)
+                            @foreach ($jurusans as $jurusan)
+                                @if (count($jurusan->pendaftaran) >= 1)
+                                    @foreach ($jurusan->pendaftaran as $pendaftaran)
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                                <div class="d-flex gap-2">
+                                                    @if ($pendaftaran->pivot->status === 'disetujui')
+                                                        <div
+                                                            class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
+                                                            <h6 class="mb-1 text-truncate">🎉 Selamat
+                                                                {{ Auth::user()->nama }}</h6>
+                                                            <small class="text-truncate text-body">Kamu Diterima di kampus
+                                                                {{ $jurusan->fakultas->kampus->nama }} </small>
+                                                        </div>
+                                                        <div class="flex-shrink-0 dropdown-notifications-actions">
+                                                            <small
+                                                                class="text-muted">{{ $pendaftaran->pivot->updated_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    @elseif ($pendaftaran->pivot->status === 'ditolak')
+                                                        <div
+                                                            class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
+                                                            <h6 class="mb-1 text-truncate">😭 Nice Try
+                                                                {{ Auth::user()->nama }}</h6>
+                                                            <small class="text-truncate text-body">Kamu Tidak Diterima
+                                                                di Kampus {{ $jurusan->fakultas->kampus->nama }},
+                                                                Tetap Semangat Jangan Menyerah</small>
+                                                        </div>
+                                                        <div class="flex-shrink-0 dropdown-notifications-actions">
+                                                            <small
+                                                                class="text-muted">{{ $pendaftaran->pivot->updated_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    @else
+                                                        <div
+                                                            class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
+                                                            <h6 class="mb-1 text-truncate">🙄 Sedang Menunggu Konfirmasi
+                                                                {{ Auth::user()->nama }}</h6>
+                                                            <small class="text-truncate text-body">Kamu mendaftar
+                                                                di Kampus {{ $jurusan->fakultas->kampus->nama }}</small>
+                                                        </div>
+                                                        <div class="flex-shrink-0 dropdown-notifications-actions">
+                                                            <small
+                                                                class="text-muted">{{ $pendaftaran->pivot->updated_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    @endif
 
-        <!--Daftar Kampus Favorit -->
-        <section class="pt-11 dark:bg-gray-950 dark:text-white">
-            <div class="container">
-                <div class="pt-5">
-                    <div class="ms-6 text-[20px] text-nowrap md:text-[25px]">
-                        <h2>Daftar Kampus Favorit</h2>
-                    </div>
-                </div>
-                <div class="md:grid-cols-3 lg:grid-cols-4 container grid grid-cols-1 gap-3 px-4 mx-auto my-1 mt-4">
-                    @forelse ($kampusFavorit as $kampus)
-                        <div class="ps-6 pe-6 dark:bg-zinc-900 dark:text-white w-full pt-6 pb-6 rounded-lg shadow-xl">
-                            <div
-                                class="h-15 aspect-[3/2] rounded-lg md:aspect-[6/4] md:flex overflow-hidden lg:aspect-[6/5] group relative hover:scale-105 duration-500">
-                                @forelse ($kampus->Gambar as $gambar)
-                                    <img class="group-hover:scale-110 absolute w-full h-full transition-all duration-700 bg-cover"
-                                        alt="Card Fatir" src="{{ asset('storage/' . $kampus->gambar) }}" />
-                                @empty
-                                    <p class="text-red-600 uppercase self-center items-center">tidak ada gambar</p>
-                                @endforelse
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
 
-                            </div>
-                            <div class="mt-2">
-                                <h2 class="line-clamp-1 mb-1 text-lg font-bold">
-                                    {{ $kampus->nama }}
-                                </h2>
-                                <p class="line-clamp-2 font-light">
-                                    {{ $kampus->tentang }}
-                                </p>
-                            </div>
-                            <div class="text-end mt-4">
-                                <div class="card-actions justify-end mt-2">
-                                    <a href="{{ route('pengunjung.kampus.detail', $kampus->slug) }}"
-                                        class="px-7 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 inline-flex items-center py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-indigo-800 border border-transparent rounded-md">
-                                        Detail
-                                    </a>
+                    </li>
+                    <li class="dropdown-menu-footer border-top p-2">
+                        <a href="{{ route('pengunjung.notifikasi') }}"
+                            class="btn btn-primary d-flex justify-content-center">
+                            View all notifications
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--/ Notification -->
+
+            <!-- User -->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <span class="mdi mdi-logout-variant mdi-24px"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <span class="fw-medium d-block">{{ Auth::user()->nama }}</span>
+                                    <small class="text-muted">{{ Auth::user()->role }}</small>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <p class="flex justify-center text-red-600 uppercase mx-auto">tidak ada kampus</p>
-                    @endforelse
-                </div>
-                @if (count($kampusFavorit) >= 1)
-                    <div class="p-4 mt-2">
-                        <div class="flex justify-center w-full">
-                            <a href="dadad:;" class="learn-more">
-                                <span class="circle ms-5" aria-hidden="true">
-                                    <span class="icon arrow"></span>
-                                </span>
-                                <span class="button-text text-slate-500 hover:text-white">Selengkapnya</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    @if (Auth::user()->role == 'admin')
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                <i class="mdi mdi-account-outline me-2"></i>
+                                <span class="align-middle">Admin Dashboard</span>
                             </a>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </section>
-        <!-- end daftar kampus favorit -->
-    @endif
-    <!-- daftar semua kampus -->
-    <section class="dark:bg-gray-950 pt-11 lg:pt-14 pb-5 min-h-screen ">
-        <div class="container">
-            <div class="mt-5 mb-1">
-                <div class="ms-6 text-[20px] text-nowrap md:text-[25px] dark:text-white">
-                    <h2>
-                        @if (request('search'))
-                            Daftar Kampus {{ old('search', request('search')) }}
-                        @else
-                            Daftar Semua Kampus
-                        @endif
-                    </h2>
-                </div>
-            </div>
-            <div class="md:grid-cols-2 lg:grid-cols-2 grid grid-cols-1 gap-2 p-2">
-                @forelse ($kampuses as $kampus)
-                    <div class="card card-compact lg:card-side bg-base-100 dark:bg-gray-950 shadow-xl">
-                        @forelse ($kampus->Gambar as $gambar)
-                            <figure class="aspect-[3/2] lg:aspect-[2/1]">
-                                <img class="rounded-lg" src="/public/img/um4.jpg" alt="Shoes" />
-                            </figure>
-                        @empty
-                            <p class="text-red-600 uppercase self-center ">Tidak ada Gambar</p>
-                        @endforelse
-                        <div class="card-body">
-                            <a href="{{ route('pengunjung.kampus.detail', $kampus->slug) }}"
-                                class="card-title text-xl hover:text-indigo-500 lg:text-[23px] lg:mt-2 dark:text-white">{{ $kampus->nama }}</a>
-                            <p class="line-clamp-2 lg:line-clamp-none dark:text-white">
-                                {{ $kampus->tentang }}
+                        </li>
+                    @endif
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button class="dropdown-item" type="submit">
+                                <i class="mdi mdi-logout me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+            <!--/ User -->
+        @else
+            <li class="me-3">
+                <a href="{{ route('register') }}" class="btn btn-outline-dark waves-effect text-capitalize">Daftar</a>
+            </li>
+            <li class="me-3">
+                <a href="{{ route('login') }}" class="btn btn-primary waves-effect text-capitalize">Masuk</a>
+            </li>
+        @endauth
+    </x-navbar>
+
+    {{-- layout --}}
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+        <div class="app-academy">
+            <div class="card p-0 mb-4">
+                <form action="{{ route('pengunjung.dashboard') }}">
+                    <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0 pt-4">
+                        <div
+                            class="app-academy-md-50 card-body sm:text-center d-flex align-items-md-center flex-column text-md-center mb-4">
+                            <span class="card-title mb-3 lh-lg px-md-5 display-6 text-heading">
+                                Daftar Kampus Malang
+                            </span>
+                            <p class="mb-3">
+                                Silahkan Cari Kampus favorit anda
                             </p>
-                            <div class="card-actions justify-end mt-2">
-                                <a href="{{ route('pengunjung.kampus.detail', $kampus->slug) }}"
-                                    class="px-7 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 inline-flex items-center py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-indigo-800 border border-transparent rounded-md">
-                                    Detail
-                                </a>
+                            <div class="d-flex align-items-center justify-content-between app-academy-md-50">
+                                <input type="search" name="search" value="{{ old('search', request('search')) }}"
+                                    placeholder="Cari Kampus" class="form-control me-2" />
+                                <button type="submit"><i class="mdi mdi-magnify"></i></button>
                             </div>
                         </div>
                     </div>
-                @empty
-                    <p class="inline-flex justify-center items-center text-red-600 uppercase">tidak ada kampus</p>
-                @endforelse
+                </form>
+            </div>
+            {{-- <h4 class="py-3 mb-4"><span class="text-muted fw-light">Ditemukan ada</span> 1000 Kampus</h4> --}}
+            <div class="card mb-4">
+                <div class="card-header d-flex flex-wrap justify-content-between gap-3">
+                    <div class="card-title mb-0 me-1">
+                        <h5 class="mb-1">Daftar Kampus</h5>
+                        <p class="mb-0">Total Kampus ada {{ $kampuses->count() }}</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row gy-4 mb-4">
+                        @foreach ($kampuses as $kampus)
+                            <div class="col-sm-6 col-lg-4 grid-flow-col auto-cols-max">
+                                <div class="card p-2 h-100 shadow-none border">
+                                    <div class="rounded-2 text-center mb-3 sm:w-30 sm:h-30" style="height: 320px">
+                                        @if (!empty($kampus->gambar->first()->gambar))
+                                            <img src="/storage/{{ $kampus->Gambar->first()->gambar }}"
+                                                class="img-fluid w-full h-80 object-cover rounded-md" alt="dada">
+                                        @else
+                                            <p class="flex justify-center items-center uppercase text-red-500">tidak ada
+                                                gambar</p>
+                                        @endif
+
+                                    </div>
+                                    <div class="card-body p-3 pt-2">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span
+                                                class="badge rounded-pill bg-label-primary">{{ ucwords($kampus->kategori) }}</span>
+                                            <p class="d-flex align-items-center justify-content-center gap-1 mb-0">
+                                                {{-- 4.4 <span class="text-warning"><i
+                                                        class="mdi mdi-star me-1"></i></span><span
+                                                    class="fw-normal">(1.23k)</span> --}}
+                                            </p>
+                                        </div>
+                                        <a href="{{ route('pengunjung.kampus.detail', $kampus->slug) }}"
+                                            class="h5">{{ ucwords($kampus->nama) }}</a>
+                                        <p class="mt-2 sm:truncate">{{ $kampus->tentang }}</p>
+                                        <div
+                                            class="d-flex flex-column flex-md-row gap-3 mt-3 text-nowrap flex-wrap flex-md-nowrap flex-lg-wrap flex-xxl-nowrap">
+                                            <a class="w-100 btn btn-outline-primary d-flex align-items-center"
+                                                href="{{ route('pengunjung.kampus.detail', $kampus->slug) }}">
+                                                <span class="me-1">Detail</span><i
+                                                    class="mdi mdi-arrow-right lh-1 scaleX-n1-rtl"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                    <nav aria-label="Page navigation" class="d-flex align-items-center justify-content-center">
+                        {{ $kampuses->links() }}
+                    </nav>
+                </div>
             </div>
         </div>
-    </section>
-    <!-- end daftar semua kampus -->
+    </div>
 </x-pengunjung-layout>
