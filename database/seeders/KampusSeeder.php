@@ -20,7 +20,7 @@ class KampusSeeder extends Seeder
         Kampus::truncate();
         Kontak::truncate();
         Kampus::factory()
-            ->count(20)
+            ->count(2)
             ->hasKontak()
             // ->has(GambarKampus::factory()->count(3), 'Gambar')
             ->create();

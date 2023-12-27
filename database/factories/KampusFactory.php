@@ -21,7 +21,7 @@ class KampusFactory extends Factory
             'slug' => fake()->slug(2,true),
             'alamat' => fake()->city(),
             'akreditasi' => fake()->randomElement(['A', 'B', 'C']),
-            'tentang' => fake()->paragraphs(4,true),
+            'tentang' => fake()->paragraph(),
             'website' => fake()->lexify('??????.ac.id'),
             'kategori' => fake()->randomElement(['politeknik', 'swasta', 'negeri', 'sekolah tinggi', 'insitut'])
         ];
