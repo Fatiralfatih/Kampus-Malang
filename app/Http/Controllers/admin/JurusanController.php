@@ -16,7 +16,7 @@ class JurusanController extends Controller
 
     function navItem(Kampus $kampus)
     {
-        $jurusan = $kampus->Jurusan()->with(['pembayaran', 'pelaksanaan'])->latest()->get();
+        $jurusan = $kampus->Jurusan()->with(['pembayaran', 'pelaksanaan'])->latest()->paginate(4);
         return view('admin.jurusan.navItem', [
             'kampus' => $kampus,
             'jurusans' => $jurusan,

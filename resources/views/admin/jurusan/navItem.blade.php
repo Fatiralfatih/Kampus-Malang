@@ -44,7 +44,7 @@
                                     <div class="card col-sm-12">
                                         <div class="flex justify-between mb-2">
                                             <div>
-                                                <h5 class="card-header text-xl">Daftar Jurusan
+                                                <h5 class="card-header text-md">Daftar Jurusan
                                                     {{ $kampus->nama }} </h5>
                                             </div>
                                             <div class="card-header col-sm text-end">
@@ -62,20 +62,18 @@
                                                     <div class="card">
                                                         <div class="card-header pb-2">
                                                             <div class="d-flex">
-                                                                <div class="d-flex">
-                                                                    <div class="me-2">
-                                                                        <div class="client-info text-body">
-                                                                            <p class="fw-medium uppercase">
-                                                                                {{ $jurusan->nama }}
-                                                                                @if ($jurusan->status)
-                                                                                    <span
-                                                                                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-700/10">Enable</span>
-                                                                                @else
-                                                                                    <span
-                                                                                        class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-700/10">Disable</span>
-                                                                                @endif
-                                                                            </p>
-                                                                        </div>
+                                                                <div class="me-2">
+                                                                    <div class="client-info text-body">
+                                                                        <p class="fw-medium uppercase">
+                                                                            {{ $jurusan->nama }}
+                                                                            @if ($jurusan->status)
+                                                                                <span
+                                                                                    class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-700/10">Enable</span>
+                                                                            @else
+                                                                                <span
+                                                                                    class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-700/10">Disable</span>
+                                                                            @endif
+                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="ms-auto">
@@ -320,26 +318,28 @@
                                                             </h5>
                                                             <div class="mt-3">
                                                                 @forelse ($jurusan->pelaksanaan as $pelaksanaan)
-                                                                <ul>
-                                                                    <li>
-                                                                        {{ $loop->iteration }}.
+                                                                    <ul>
+                                                                        <li>
+                                                                            {{ $loop->iteration }}.
                                                                             {{ $pelaksanaan->nama }}:
                                                                             <span class="font-medium">Tanggal
                                                                                 {{ date('d-m-Y', strtotime($pelaksanaan->jadwal)) }}</span>
-                                                                        <div class="inline-flex space-x-3">
-                                                                            <button type="button" data-bs-toggle="modal"
-                                                                                data-bs-target="#edit-pelaksanaan{{ $pelaksanaan->id }}"
-                                                                                class="dropdown-item text-blue-500">
-                                                                                Edit</button>
-                                                                            <button type="button" data-bs-toggle="modal"
-                                                                                data-bs-target="#hapus-pelaksanaan{{ $pelaksanaan->id }}"
-                                                                                class="dropdown-item text-red-500">
-                                                                                Hapus</button>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                                    
-                                                                    
+                                                                            <div class="inline-flex space-x-3">
+                                                                                <button type="button"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#edit-pelaksanaan{{ $pelaksanaan->id }}"
+                                                                                    class="dropdown-item text-blue-500">
+                                                                                    Edit</button>
+                                                                                <button type="button"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#hapus-pelaksanaan{{ $pelaksanaan->id }}"
+                                                                                    class="dropdown-item text-red-500">
+                                                                                    Hapus</button>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+
+
 
                                                                     {{-- modal edit pembayaran --}}
                                                                     <div class="modal fade"
@@ -472,8 +472,12 @@
                                                     </div>
                                                 </div>
                                             @empty
-                                            <p class="text-red-500 uppercase flex justify-center">tidak ada jurusan</p>
+                                                <p class="text-red-500 uppercase flex justify-center">tidak ada jurusan
+                                                </p>
                                             @endforelse
+                                            <div class="flex justify-center">
+                                                {{ $jurusans->links() }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

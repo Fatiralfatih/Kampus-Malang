@@ -43,7 +43,7 @@
                                         <div class="card">
                                             <div class="flex justify-between mb-2">
                                                 <div>
-                                                    <h5 class="card-header text-xl">Daftar Fakultas
+                                                    <h5 class="card-header text-md">Daftar Fakultas
                                                         {{ $kampus->nama }}</h5>
                                                 </div>
                                                 <div class="card-header col-sm text-end">
