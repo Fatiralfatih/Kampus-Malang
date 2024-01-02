@@ -1,10 +1,18 @@
 <x-pengunjung-layout>
+
     <main>
         {{-- hero section --}}
-        <section class="pt-12">
+        <section class="pt-14">
             <div class="container">
-                <div class="hero-content lg:flex-row-reverse flex-col max-w-full mx-auto">
-                    <figure class="h-15 md:aspect-[video] md:min-w-[600px]">
+                <div class="text-sm breadcrumbs p-4 md:text-md">
+                    <ul>
+                        <li><a href="{{ route('pengunjung.dashboard') }}" class="hover:text-indigo-400">Home</a></li>
+                        <li><a href="{{ route('pengunjung.kampus.detail', $kampus->slug) }}"
+                                class="hover:text-indigo-400 capitalize">{{ $kampus->nama }} </a></li>
+                    </ul>
+                </div>
+                <div class="hero-content md:flex-row-reverse flex-col max-w-full mx-auto">
+                    <figure class="h-15 md:aspect-video lg:min-w-[600px]">
                         @forelse ($kampus->Gambar as $gambar)
                             <img src="{{ asset('storage/' . $gambar->gambar) }}" class="w-full rounded-lg shadow-2xl" />
                         @empty
@@ -12,10 +20,6 @@
                         @endforelse
                     </figure>
                     <div class="md:pt-3 lg:flex-row-reverse lg:ps-0 md:ps-4 sm:ps-6 w-full">
-                        {{-- gambar nanti aja dipikirin --}}
-                        {{-- <div class="lg:w-28 lg:mb-5 w-12">
-                        <img src="../../public/img/um2.png" alt="" />
-                    </div> --}}
                         <h1 class="text-[30px] lg:text-[35px] font-bold text-start capitalize">
                             {{ $kampus->nama }}
                         </h1>
@@ -57,15 +61,16 @@
         {{-- end hero section --}}
 
         {{-- profil singkat --}}
-        <section class="py-10">
-            <div class="bg-base-200 dark:bg-gray-950 container">
-                <div class="md:w-[800px] min-h-[200px] lg:text-center py-5 mx-auto  text-center">
-                    <h2 class="md:text-2xl text-slate-800 mt-5 dark:text-slate-200 font-sans text-xl font-semibold">
+        <section class="pt-11">
+            <div class=" container">
+                <div
+                    class="md:max-w-[800px] lg:max-w-full bg-base-200 dark:bg-gray-950 min-h-[200px] lg:text-center p-4 mx-auto  text-center">
+                    <h2
+                        class="md:text-2xl text-slate-800 mt-2 dark:text-slate-200 font-sans text-xl font-semibold capitalize">
                         Profil Singkat {{ $kampus->nama }}
                     </h2>
                     <div class="mt-2">
-                        <p
-                            class="indent-5 lg:text-md text-start lg:text-center text-slate-800 dark:text-slate-200 max-w-full">
+                        <p class="indent-5 lg:text-md text-center text-slate-800 dark:text-slate-200 max-w-full">
                             {{ $kampus->tentang }}
                         </p>
                     </div>
@@ -74,8 +79,8 @@
         </section>
         {{-- end profil singkat --}}
 
-        {{-- daftar fakultas --}}
-        <section class="pt-10">
+        {{-- daftar fakultas 1 --}}
+        {{-- <section class="pt-10">
             <div class="container">
                 <div class="grid grid-cols-1 min-h-[360px] sm:grid-cols-3">
                     <div class="sm:m-0 md:order-none order-3 pb-5 m-3">
@@ -93,7 +98,7 @@
                     </div>
                     <div class="lg:pt-0 sm:pt-0 inline-block">
                         <h2 class="ms-4 md:text-2xl text-xl font-semibold">
-                            Pilihan Progam Studi
+                            Pendaftaran Mahasiswa Baru
                         </h2>
                         @forelse ($kampus->Fakultas as $fakultas)
                             <div class="collapse collapse-arrow">
@@ -170,7 +175,60 @@
                     </div>
                 </div>
             </div>
+        </section> --}}
+        {{-- end daftar fakultas --}}
+
+        {{-- daftar fakultas 2 --}}
+
+        <section class="pt-11">
+            <div class="container">
+                <div class="min-h-[500px]">
+                    <div class="flex justify-center ps-3 ">
+                        <h2 class="font-bold text-xl md:text-2xl self-center ">Daftar Fakultas {{ $kampus->nama }}</h2>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-4 mt-4 md:mt-6">
+                        @forelse ($kampus->Fakultas as $fakultas)
+                            <div class="card w-[380px] dark:bg-zinc-900 sm:w-full mx-auto bg-base-100 shadow-xl">
+                                <div class="card-body">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <h2
+                                                class="card-title text-slate-800 text-lg capitalize me-3  dark:text-slate-300">
+                                                Fakultas
+                                                {{ $fakultas->nama }}
+                                            </h2>
+                                        </div>
+                                        @if ($fakultas->status)
+                                            <div>
+                                                <span
+                                                    class="inline-flex items-center rounded-md bg-green-50  px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 dark:bg-green-100 dark:text-green-900 dark:ring-green-800/20">Enable</span>
+                                            </div>
+                                        @else
+                                            <div>
+                                                <span
+                                                    class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">Disable</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <p class="text-slate-700 line-clamp-1 md:line-clamp-3 dark:text-slate-300">
+                                        {{ $fakultas->tentang }}
+                                    </p>
+                                    <div class="card-actions justify-end  mt-3">
+                                        <a href="{{ route('pengunjung.fakultas.detail', $fakultas->slug) }}"
+                                            class="px-7 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 inline-flex items-center py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-indigo-800 border border-transparent rounded-md">
+                                            Detail
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p>tidak ada fakultas</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
         </section>
+
         {{-- end daftar fakultas --}}
     </main>
 </x-pengunjung-layout>

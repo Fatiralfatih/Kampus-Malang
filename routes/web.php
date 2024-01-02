@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 // pengunjung
 Route::get('/', [PengunjungController::class, 'dashboard'])->name('pengunjung.dashboard');
-Route::get('kampus/detail/{kampus}', [PengunjungController::class, 'detail'])->name('pengunjung.kampus.detail');
-Route::geT('notifikasi', [PengunjungController::class, 'notifikasi'])->name('pengunjung.notifikasi');
-
+Route::get('kampus/detail/{kampus}', [PengunjungController::class, 'detailKampus'])->name('pengunjung.kampus.detail');
+Route::get('notifikasi', [PengunjungController::class, 'notifikasi'])->name('pengunjung.notifikasi');
+Route::get('fakultas/{fakultas}', [PengunjungController::class, 'detailFakultas'])->name('pengunjung.fakultas.detail');
 // middleware admin
 Route::middleware(['auth', 'admin'])->group(function () {
     // dashboard for admin

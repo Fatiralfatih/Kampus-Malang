@@ -22,7 +22,8 @@ export default {
                 coklat: '#8a1b1b',
             },
             screens: {
-                '2xl': '1610px'
+                '2xl': '1610px',
+                'md': '768px',
             },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],

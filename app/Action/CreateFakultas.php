@@ -9,7 +9,7 @@ class CreateFakultas
 
     public function execute($request, $kampus)
     {
-        $slugFakultas = Str::slug($request->namaFakultas . '-' . $request->namaKampus, '-');
+        $slugFakultas = Str::slug($request->namaFakultas . '-' . $kampus->nama, '-');
         return $kampus->Fakultas()->create([
             'nama' => $request->namaFakultas,
             'slug' => $slugFakultas,
