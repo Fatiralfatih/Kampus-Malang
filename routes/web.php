@@ -104,9 +104,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::put('nonaktif/{id}', [MemberController::class, 'nonaktif'])->name('admin.member.nonaktif');
     });
 
-    // data mahasiswa for admin
-    Route::prefix('admin/mahasiswa')->group(function () {
-        Route::get('data', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
+    // data pendaftaran for admin
+    Route::prefix('admin/pendaftaran')->group(function () {
+        Route::get('data', [MahasiswaController::class, 'index'])->name('admin.pendaftaran');
         Route::put('terima/{id}', [MahasiswaController::class, 'terima'])->name('admin.mahasiswa.terima');
         Route::put('tolak/{id}', [MahasiswaController::class, 'tolak'])->name('admin.mahasiswa.tolak');
     });

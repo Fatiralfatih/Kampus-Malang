@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Gambar_kampus;
 use Illuminate\Database\Seeder;
 use Illuminate\Filesystem\Filesystem;
 

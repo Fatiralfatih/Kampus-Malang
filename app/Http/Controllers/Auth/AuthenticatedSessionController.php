@@ -30,9 +30,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (Auth::user()->role == 'member') {
-            return redirect()->intended(RouteServiceProvider::HOME)->with('success', 'berhasil login');
+            return redirect()->intended(RouteServiceProvider::HOME)->with('login', 'berhasil login');
         } else {
-            return redirect()->route('admin.dashboard')->with('success', 'Berhasil Login Admin');
+            return redirect()->route('admin.dashboard')->with('login', 'Berhasil Login Admin');
         }
     }
 
@@ -47,6 +47,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('pengunjung.dashboard')->with('success', 'berhasil logout');
+        return redirect()->route('pengunjung.dashboard')->with('logout', 'berhasil logout');
     }
 }

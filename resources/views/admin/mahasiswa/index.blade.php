@@ -1,7 +1,7 @@
 <x-admin-layout>
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <h5 class="card-header text-lg font-semibold ">Daftar Mahasiswa</h5>
+            <h5 class="card-header text-lg font-semibold ">Daftar Pendaftaran</h5>
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <thead>

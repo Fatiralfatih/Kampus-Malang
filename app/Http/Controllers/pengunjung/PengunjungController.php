@@ -29,9 +29,11 @@ class PengunjungController extends Controller
 
     function notifikasi()
     {
-        $mahasiwases = Jurusan::with(['fakultas.kampus', 'pendaftaran' => function ($query) {
+        $mahasiwases = Jurusan::where(function ($query) {
+            $query->event();
+        })->with(['fakultas.kampus','pendaftaran' => function ($query) {
             $query->where('member_id', Auth::id());
-        }])->latest()->get();
+        }])->get();
         return view('pengunjung.notifikasi', [
             'mahasiwases' => $mahasiwases
         ]);

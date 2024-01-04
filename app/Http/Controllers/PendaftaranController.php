@@ -10,9 +10,8 @@ class PendaftaranController extends Controller
 {
     function daftar(Kampus $kampus)
     {
-        $kampuses = $kampus->load(['jurusan']);
         return view('pengunjung.pendaftaran', [
-            'kampus' => $kampuses
+            'kampus' => $kampus
         ]);
     }
 
@@ -22,9 +21,8 @@ class PendaftaranController extends Controller
         $jurusan->pendaftaran()->attach(Auth::id(), [
             'jurusan_id' => $request->jurusan_id,
         ]);
-
         return redirect()
-            ->route('pengunjung.dashboard')
-            ->with('success', 'Selamat Anda sudah mendaftar di ' . $kampus->nama . ' silahkan tunggu konfirmasi');
+            ->route('pengunjung.fakultas.detail', $jurusan->fakultas->slug)
+            ->with('success', 'Berhasil Mendaftar!');
     }
 }

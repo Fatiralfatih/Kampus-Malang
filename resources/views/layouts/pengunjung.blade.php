@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url('/') }}/css/style.css" />
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     @vite('resources/css/app.css')
 </head>
 
@@ -44,10 +43,10 @@
                 <div class="flex-none">
                     @auth
                         {{-- user / logout --}}
-                        <div class="dropdown dropdown-end">
+                        <div class="dropdown dropdown-end ">
                             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                                <div class="w-full rounded-full items-center">
-                                    <span class="text-3xl">🏄‍♀️</span>
+                                <div class="w-full rounded-full self-center mt-2 items-center">
+                                    <ion-icon name="log-in-outline" size="large" ></ion-icon>
                                 </div>
                             </div>
                             <ul tabindex="0"
@@ -100,6 +99,37 @@
             </div>
         </div>
     </header>
+
+    @if (Session('success'))
+        <div role="alert"
+            class="alert top-28 right-8 fixed z-10 max-w-[300px] md:max-w-[400px] md:top-20 lg:right-10 xl:right-32 2xl:right-[460px] dark:bg-indigo-500 dark:text-slate-200 dark:border-none ">
+            <div class=" border-green-500 text-green-500">
+                <svg role="img" class="w-8 fill-current " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>Cachet</title>
+                    <path
+                        d="M11.746.254C5.265.254 0 5.519 0 12c0 6.481 5.265 11.746 11.746 11.746 6.482 0 11.746-5.265 11.746-11.746 0-1.44-.26-2.82-.734-4.097l-.264-.709-1.118 1.118.1.288c.373 1.064.575 2.207.575 3.4a10.297 10.297 0 01-10.305 10.305A10.297 10.297 0 011.441 12 10.297 10.297 0 0111.746 1.695c1.817 0 3.52.47 5.002 1.293l.32.178 1.054-1.053-.553-.316A11.699 11.699 0 0011.746.254zM22.97.841l-13.92 13.92-3.722-3.721-1.031 1.03 4.752 4.753L24 1.872z" />
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-bold text-green-400"> {{ Session()->get('success') }} </h3>
+            </div>
+            <a href="{{ route('pengunjung.notifikasi') }}" class="btn btn-sm btn-primary">See</a>
+        </div>
+    @elseif (Session('logout') || Session('login'))
+        <div role="alert"
+            class="alert top-28 right-8 fixed z-10 max-w-[300px] md:max-w-[400px] md:top-20 lg:right-10 xl:right-32 2xl:right-[460px] dark:bg-indigo-500 dark:text-slate-200 dark:border-none ">
+            <div class=" border-green-500 text-green-500">
+                <svg role="img" class="w-8 fill-current " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>Cachet</title>
+                    <path
+                        d="M11.746.254C5.265.254 0 5.519 0 12c0 6.481 5.265 11.746 11.746 11.746 6.482 0 11.746-5.265 11.746-11.746 0-1.44-.26-2.82-.734-4.097l-.264-.709-1.118 1.118.1.288c.373 1.064.575 2.207.575 3.4a10.297 10.297 0 01-10.305 10.305A10.297 10.297 0 011.441 12 10.297 10.297 0 0111.746 1.695c1.817 0 3.52.47 5.002 1.293l.32.178 1.054-1.053-.553-.316A11.699 11.699 0 0011.746.254zM22.97.841l-13.92 13.92-3.722-3.721-1.031 1.03 4.752 4.753L24 1.872z" />
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-bold text-green-400 capitalize"> {{ Session()->get('logout') ?? Session()->get('login') }}  </h3>
+            </div>
+        </div>
+    @endif
 
     {{ $slot }}
 

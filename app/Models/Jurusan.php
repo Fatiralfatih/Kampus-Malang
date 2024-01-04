@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Fakultas;
 use App\Models\Pembayaran;
 use App\Models\Pelaksanaan;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,10 @@ class Jurusan extends Model
         return 'slug';
     }
 
+    public function scopeEvent($query)
+    {
+        return $query->where('created_at', '<', Carbon::today())->orderBy('created_at', 'DESC');
+    }
 
     function fakultas()
     {

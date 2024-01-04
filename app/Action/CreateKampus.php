@@ -11,7 +11,7 @@ class CreateKampus
     {
         $slug = Str::slug($request->namaKampus, '-');
         // create kampus
-        return Kampus::create([
+        $kampus =  Kampus::create([
             'nama' => $request->namaKampus,
             'slug' => $slug,
             'alamat' => $request->alamat,
@@ -20,5 +20,6 @@ class CreateKampus
             'kategori' => $request->kategori,
             'tentang' => $request->tentangKampus,
         ]);
+        return $kampus;
     }
 };

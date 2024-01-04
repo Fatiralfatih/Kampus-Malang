@@ -106,10 +106,10 @@
                             <div>Data Member</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ Request()->is('admin/mahasiswa/data') ? 'active' : '' }}">
-                        <a href="{{ route('admin.mahasiswa') }}" class="menu-link">
+                    <li class="menu-item {{ Request()->is('admin/pendaftaran/data') ? 'active' : '' }}">
+                        <a href="{{ route('admin.pendaftaran') }}" class="menu-link">
                             <i class="menu-icon tf-icons mdi mdi-account-tie"></i>
-                            <div>Data Mahasiswa</div>
+                            <div>Data pendaftaran</div>
                         </a>
                     </li>
                 </ul>
