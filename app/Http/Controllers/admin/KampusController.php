@@ -13,7 +13,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\KampusStoreRequest;
 use App\Http\Requests\KampusUpdateRequest;
-use App\Models\Jurusan;
 
 class KampusController extends Controller
 {

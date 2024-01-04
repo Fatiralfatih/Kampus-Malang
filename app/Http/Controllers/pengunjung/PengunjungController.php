@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Fakultas;
 use App\Models\Jurusan;
 use App\Models\Kampus;
+use App\Models\Pendaftaran;
 use Illuminate\Support\Facades\Auth;
 
 class PengunjungController extends Controller
@@ -29,13 +30,13 @@ class PengunjungController extends Controller
 
     function notifikasi()
     {
-        $mahasiwases = Jurusan::where(function ($query) {
-            $query->event();
-        })->with(['fakultas.kampus','pendaftaran' => function ($query) {
-            $query->where('member_id', Auth::id());
-        }])->get();
+        $pendaftaran = Pendaftaran::where('member_id', Auth::id())->with(['jurusan.fakultas.kampus', 'mahasiswa'])->latest()->get();
+        // dd($pendaftaran->toArray());
+        // $pendaftaran = Jurusan::with(['fakultas.kampus','pendaftaran' => function ($query) {
+        //     $query->where('member_id', Auth::id());
+        // }])->get();
         return view('pengunjung.notifikasi', [
-            'mahasiwases' => $mahasiwases
+            'pendaftarans' => $pendaftaran
         ]);
     }
 

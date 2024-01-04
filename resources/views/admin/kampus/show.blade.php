@@ -76,16 +76,15 @@
                                 @endif
                             </ul>
                             <div class="d-flex justify-content-center">
-                                <a
-                                  href="{{route('admin.kampus.edit', $kampus->slug)}}"
-                                  class="btn btn-primary me-3"
-                                  >Edit</a
-                                >
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#delete-kampus{{ $kampus->slug }}" class="btn btn-outline-danger suspend-user">Delete</button>
-                              </div>
+                                <a href="{{ route('admin.kampus.edit', $kampus->slug) }}"
+                                    class="btn btn-primary me-3">Edit</a>
+                                <button type="button" data-bs-toggle="modal"
+                                    data-bs-target="#delete-kampus{{ $kampus->slug }}"
+                                    class="btn btn-outline-danger suspend-user">Delete</button>
+                            </div>
 
-                              {{-- delete modal kampus --}}
-                              <div class="modal fade" id="delete-kampus{{ $kampus->slug }}" tabindex="-1"
+                            {{-- delete modal kampus --}}
+                            <div class="modal fade" id="delete-kampus{{ $kampus->slug }}" tabindex="-1"
                                 aria-hidden="true" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -103,8 +102,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <form
-                                            action="{{ route('admin.kampus.delete', ['kampus' => $kampus->slug]) }}"
+                                        <form action="{{ route('admin.kampus.delete', ['kampus' => $kampus->slug]) }}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')
@@ -132,21 +130,9 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                                    data-bs-target="#navs-tab-home" aria-controls="navs-tab-home" aria-selected="true">
+                                    data-bs-target="#navs-tab-home" aria-controls="navs-tab-home"
+                                    aria-selected="true">
                                     Fakultas
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                    data-bs-target="#navs-tab-profile" aria-controls="navs-tab-profile"
-                                    aria-selected="false">
-                                    Pembayaran
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="nav-link" data-bs-toggle="tab" role="tab"
-                                    aria-selected="false">
-                                    Jadwal
                                 </button>
                             </li>
                         </ul>
@@ -187,12 +173,6 @@
                                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                                     <li><a class="dropdown-item"
                                                                             href="{{ route('admin.fakultas', $kampus->slug) }}">Edit</a>
-                                                                    {{-- <li>
-                                                                        <button type="button"
-                                                                            class="dropdown-item text-danger"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#delete-fakultas{{ $fakultas->slug }}">Delete</button>
-                                                                    </li> --}}
                                                                 </ul>
                                                             </div>
                                                         </div>
