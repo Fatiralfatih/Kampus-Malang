@@ -84,5 +84,3 @@
         </section>
     </main>
 </x-pengunjung-layout>
-
-{{-- diterima --}}

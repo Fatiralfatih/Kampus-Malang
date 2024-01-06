@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
@@ -22,7 +22,7 @@
                         class="md:text-2xl text-lg font-semibold">University.<span
                             class="text-indigo-700">Jawa</span></a>
                 </div>
-                <div class=" flex-none items-center">
+                <div class="flex-none items-center">
                     <label class="swap swap-rotate btn btn-ghost btn-circle">
                         <!-- this hidden checkbox controls the state -->
                         <input id="check-theme" class="checkbox opacity-0" type="checkbox" />
@@ -46,17 +46,17 @@
                         <div class="dropdown dropdown-end ">
                             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                                 <div class="w-full rounded-full self-center mt-2 items-center">
-                                    <ion-icon name="log-in-outline" size="large" ></ion-icon>
+                                    <ion-icon name="log-in-outline" size="large"></ion-icon>
                                 </div>
                             </div>
                             <ul tabindex="0"
-                                class="mt-3 z-[1] p-2 gap-2 shadow menu menu-sm dropdown-content bg-base-100  dark:text-slate-300 rounded-box w-[400px] sm:w-[300px] md:w-[200px]  dark:bg-dark ">
+                                class="mt-3 z-[1] p-2 gap-2 shadow menu menu-sm dropdown-content bg-base-100  dark:text-slate-300 rounded-box min-w-[400px] sm:min-w-[300px] md:min-w-[200px]  dark:bg-dark ">
                                 <li>
                                     <div class="flex dark:hover:bg-indigo-500">
                                         <ion-icon name="person-outline" size="small"></ion-icon>
                                         <div class="flex-grow-1">
                                             <span>
-                                                {{ Auth::user()->nama }}
+                                                {{Auth::user()->nama}}
                                             </span><br>
                                             <small class="text-slate-400">
                                                 {{ Auth::user()->role }}
@@ -126,7 +126,8 @@
                 </svg>
             </div>
             <div>
-                <h3 class="font-bold text-green-400 capitalize"> {{ Session()->get('logout') ?? Session()->get('login') }}  </h3>
+                <h3 class="font-bold text-green-400 capitalize">
+                    {{ Session()->get('logout') ?? Session()->get('login') }} </h3>
             </div>
         </div>
     @endif

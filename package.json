@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "fatir": "vite",
+        "dev": "vite",
         "build": "vite build"
     },
     "devDependencies": {

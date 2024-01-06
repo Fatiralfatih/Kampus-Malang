@@ -1,7 +1,7 @@
 <x-pengunjung-layout>
     <main class="min-h-screen p-3">
 
-        {{-- detail fakultas --}}
+        {{-- nama fakultas --}}
         <section class="pt-16">
             <div class="container">
                 <div class="text-sm breadcrumbs p-4 mb-5">
@@ -14,7 +14,7 @@
                     </ul>
                 </div>
                 <div class="min-h-[70px] p-4 bg-base-200 dark:bg-indigo-200 rounded-lg">
-                    <h4 class="text-slate-800 font-medium sm:text-center">
+                    <h4 class="text-slate-800 font-medium sm:text-center capitalize">
                         {{ $fakultas->kampus->nama }}
                     </h4>
                     <div class=" mb-3">
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </section>
-        {{-- end datail fakultas --}}
+        {{-- end nama fakultas --}}
 
         {{-- profil kampus etc --}}
         <section class="pt-5">
