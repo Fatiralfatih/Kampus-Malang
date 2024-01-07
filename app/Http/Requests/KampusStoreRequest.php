@@ -42,8 +42,11 @@ class KampusStoreRequest extends FormRequest
 
             // kontak
             'email' => 'required|email|max:255|unique:kontaks,email',
-            'telepon' => 'required|numeric|unique:kontaks,telepon',
-            'whatsapp' => 'required|numeric|unique:kontaks,whatsapp',
+            'telepon' => 'required|unique:kontaks,telepon',
+            'whatsapp' => 'required|unique:kontaks,whatsapp',
+            
+            // gambar
+            'thumbnail_id' => ['nullable', 'image', 'mimes:png,jpg'],
         ];
     }
 
@@ -72,6 +75,9 @@ class KampusStoreRequest extends FormRequest
             'email' => 'email kampus',
             'telepon' => 'telepon kampus',
             'whatsapp' => 'whatsapp kampus',
+
+            // gambar
+            'thumbnail_id' => 'gambar kampus'
         ];
     }
 
@@ -87,7 +93,6 @@ class KampusStoreRequest extends FormRequest
             'min' => ':attribute minimal :min huruf',
             'email' => ':attribute tidak valid',
             'in' => ':attribute tidak sesuai',
-            'numeric' => ':attribute harus berupa angka',
         ];
     }
 }

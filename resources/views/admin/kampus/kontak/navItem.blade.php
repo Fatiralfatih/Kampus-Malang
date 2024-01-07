@@ -45,7 +45,7 @@
                                     <div class="col-xl">
                                         <div class="card mb-4">
                                             <div class="card-header d-flex justify-content-between align-items-center">
-                                                <h5 class="mb-0">Edit Kontak Kampus</h5>
+                                                <h5 class="mb-0">Edit Kontak Kampus {{$kampus->nama}}</h5>
                                                 <small class="text-body float-end">Edit Kontak Kampus</small>
                                             </div>
                                             <div class="card-body">
@@ -134,7 +134,7 @@
                                                 kontak</p>
                                             <div class="card-body">
                                                 <form
-                                                    action="{{ route('admin.kampus.tambah.kontak', ['kampus' => $kampus->slug]) }}"
+                                                    action="{{ route('admin.kampus.tambah.kontak',$kampus->slug) }}"
                                                     method="POST">
                                                     @csrf
                                                     <div class="mt-3">

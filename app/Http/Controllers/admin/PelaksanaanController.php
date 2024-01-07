@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Action\GetJurusanBySlug;
+use App\Action\GetPelaksanaanById;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PelaksanaanRequest;
 use App\Models\Jurusan;
@@ -10,15 +12,19 @@ use Illuminate\Http\Request;
 
 class PelaksanaanController extends Controller
 {
-    function create(Jurusan $jurusan)
+    function create($slug)
     {
+        $jurusan = app(GetJurusanBySlug::class)->execute($slug);
+
         return view('admin.jurusan.pelaksanaan.create', [
             'jurusan' => $jurusan,
         ]);
     }
 
-    function store(Jurusan $jurusan, PelaksanaanRequest $request)
+    function store($slug, PelaksanaanRequest $request)
     {
+        $jurusan = app(GetJurusanBySlug::class)->execute($slug);
+
         $jurusan->pelaksanaan()->create([
             'nama' => $request->nama,
             'jadwal' => $request->jadwal,
@@ -32,7 +38,7 @@ class PelaksanaanController extends Controller
     function update($id, PelaksanaanRequest $request)
     {
 
-        $pelaksanaan = Pelaksanaan::where('id', $id)->firstOrFail();
+       $pelaksanaan = app(GetPelaksanaanById::class)->execute($id);
 
         $pelaksanaan->update([
             'nama' => $request->nama,
@@ -46,7 +52,7 @@ class PelaksanaanController extends Controller
 
     function delete($id)
     {
-        $pelaksanaan = Pelaksanaan::where("id", $id)->firstOrFail();
+        $pelaksanaan = app(GetPelaksanaanById::class)->execute($id);
 
         $pelaksanaan->delete();
 

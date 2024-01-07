@@ -4,7 +4,7 @@ namespace App\Action;
 
 use Illuminate\Support\Str;
 
-class UpdateKampusBySlug
+class UpdateKampus
 {
 
     function execute($request, $kampus)

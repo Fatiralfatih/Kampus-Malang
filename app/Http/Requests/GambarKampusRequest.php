@@ -21,8 +21,14 @@ class GambarKampusRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->thumbnail_id) {
+            return [
+                'thumbnail_id' => ['required', 'exists:gambar_kampus,id']
+            ];
+        }
+
         return [
-            'gambar' => 'required'
+            'gambar' => ['required']
         ];
     }
 }

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Action\GetRoleMemberUser;
+use App\Action\GetUserById;
 use App\Action\UpdateMemberStatusById;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateMemberStatusRequest;
-use App\Models\User;
 
 class MemberController extends Controller
 {
     function index()
     {
-        $user = User::where('role', 'member')->get();
+        $user = app(GetRoleMemberUser::class)->execute();
         return view('admin.member.index', [
             'users' => $user,
         ]);
@@ -20,8 +21,8 @@ class MemberController extends Controller
     function aktif(UpdateMemberStatusRequest $request, $id)
     {
         try {
-
-            app(UpdateMemberStatusById::class)->execute($request->status, $id);
+            $user = app(GetUserById::class)->execute($id);
+            app(UpdateMemberStatusById::class)->execute($request->status, $user);
 
             return redirect()->back()->with('success', 'member berhasil di diaktifkan');
         } catch (\Exception $e) {
@@ -32,8 +33,8 @@ class MemberController extends Controller
     function nonaktif(UpdateMemberStatusRequest $request, $id)
     {
         try {
-
-            app(UpdateMemberStatusById::class)->execute($request->status, $id);
+            $user = app(GetUserById::class)->execute($id);
+            app(UpdateMemberStatusById::class)->execute($request->status, $user);
 
             return redirect()->back()->with('success', 'member berhasil di nonaktifkan');
         } catch (\Exception $e) {

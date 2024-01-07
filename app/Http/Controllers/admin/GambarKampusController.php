@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Action\CreateGambarKampus;
+use App\Action\CreateThumbnailKampus;
+use App\Action\GetGambarKampusById;
+use App\Action\GetKampusBySlug;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GambarKampusRequest;
 use App\Models\GambarKampus;
@@ -11,27 +15,37 @@ use Illuminate\Support\Facades\Storage;
 class GambarKampusController extends Controller
 {
 
-    function navItem(Kampus $kampus)
+    function navItem($slug)
     {
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
         return view('admin.kampus.gambar.navItem', [
             'kampus' => $kampus,
         ]);
     }
 
-    function store(GambarKampusRequest $request, Kampus $kampus)
+    function thumbnail($slug, GambarKampusRequest $request)
     {
-        foreach ($request->gambar as $gambar) {
-            $kampus->Gambar()->create([
-                'gambar' => $gambar->store('gambar/kampus')
-            ]);
-        }
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
 
-        return redirect()->back()->with('success', 'Gambar ' . $kampus->nama . ' Berhasil di tambahkan');
+        app(CreateThumbnailKampus::class)->execute($kampus, $request['thumbnail_id']);
+
+        return redirect()->back()->with('success', 'berhasil jadikan thumbnail');
     }
 
-    function update(GambarKampusRequest $request, $id)
+    function store($slug, GambarKampusRequest $request)
     {
-        $gambar = GambarKampus::where('id', $id)->firstOrFail();
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
+
+        app(CreateGambarKampus::class)->execute($kampus, $request->gambar->store('gambar/kampus'));
+
+        return redirect()->back()->with('success', 'Gambar Berhasil di tambahkan');
+    }
+
+    function update($id, GambarKampusRequest $request)
+    {
+        $gambar = app(GetGambarKampusById::class)->execute($id);
+
+
         if ($gambar) {
             Storage::delete($gambar->gambar);
             $gambar->update([
@@ -39,30 +53,34 @@ class GambarKampusController extends Controller
             ]);
         }
 
-
-        return redirect()->back()->with('success', 'Gambar ' . $gambar->kampus->nama . ' Berhasil di update');
+        return redirect()->back()->with('success', 'Gambar Berhasil di update');
     }
 
     function delete($id)
     {
-        $gambar = GambarKampus::where('id', $id)->firstOrFail();
+        $gambar = app(GetGambarKampusById::class)->execute($id);
+
         $gambar->delete();
 
-        return redirect()->back()->with('success', 'Gambar ' . $gambar->kampus->nama . ' Berhasil dihapus');
+        return redirect()->back()->with('success', 'Gambar Berhasil dihapus');
     }
 
-    function history(Kampus $kampus)
-    {
-        $historyGambar = $kampus->Gambar()->onlyTrashed()->get();
+    function history($slug)
+    {   
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
+
+        $gambar = $kampus->gambar()->onlyTrashed()->get();
+
         return view('admin.kampus.gambar.history', [
-            'gambars' => $historyGambar,
             'kampus' => $kampus,
+            'gambars' => $gambar
         ]);
     }
 
     function restore($id)
     {
         $gambar = GambarKampus::where('id', $id)->onlyTrashed()->firstOrFail();
+        
         $gambar->restore();
 
         return redirect()->back()->with('success', 'gambar berhasil direstore');

@@ -9,7 +9,7 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.jurusan.update', ['jurusan' => $jurusan->slug]) }}" method="POST">
+                        <form action="{{ route('admin.jurusan.update', $jurusan->slug) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row mb-5">

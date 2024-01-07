@@ -72,7 +72,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form action="{{ route('admin.kampus.restore', [$kampus->id]) }}"
+                                            <form action="{{ route('admin.kampus.restore', [$kampus->slug]) }}"
                                                 method="post">
                                                 @csrf
                                                 <div class="modal-footer">
@@ -110,7 +110,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form action="{{ route('admin.kampus.delete.permanen', [$kampus->id]) }}"
+                                            <form action="{{ route('admin.kampus.delete.permanen', [$kampus->slug]) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')

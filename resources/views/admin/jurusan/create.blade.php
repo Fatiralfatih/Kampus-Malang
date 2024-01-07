@@ -13,7 +13,7 @@
                             {{ $kampus->nama }}
                         </h5>
                         <div class="card-body">
-                            <form action="{{ route('admin.jurusan.store', ['kampus' => $kampus->slug]) }}" method="POST"
+                            <form action="{{ route('admin.jurusan.store', $kampus->slug) }}" method="POST"
                                 class="row g-3">
                                 @csrf
                                 <!-- Account Details -->

@@ -55,12 +55,12 @@
                                                     Pilih Jurusan</h3>
                                                 <select
                                                     class="select select-bordered dark:hover:select-primary w-full max-w-xs dark:bg-dark"
-                                                    name="jurusan_id">
+                                                    name="slugJurusan">
                                                     <option disabled selected class="dark:text-slate-200">Pilih Jurusan
                                                     </option>
                                                     @forelse ($fakultas->Jurusan as $jurusan)
                                                         <option class="dark:text-slate-200 capitalize"
-                                                            value="{{ $jurusan->id }}">{{ $jurusan->nama }}</option>
+                                                            value="{{ $jurusan->slug }}">{{ $jurusan->nama }}</option>
                                                     @empty
                                                         <option selected disabled class="text-red-500"> tidak ada jurusan
                                                         </option>

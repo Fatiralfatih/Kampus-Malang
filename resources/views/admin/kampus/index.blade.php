@@ -60,10 +60,10 @@
                                 <td>{{ ucwords($kampus->kategori) }}</td>
                                 <td>
                                     <div class="flex space-x-3 justify-center">
-                                        <a href="{{ route('admin.kampus.show', $kampus->slug) }}"
+                                        {{-- <a href="{{ route('admin.kampus.show', $kampus->slug) }}"
                                             class="bg-gray-500 px-3 py-2 text-white rounded-xl hover:bg-gray-700"><i
-                                                class="mdi mdi-eye-outline me-1"></i>Show</a>
-                                        <a href="{{ route('admin.kampus.edit', ['kampus' => $kampus->slug]) }}"
+                                                class="mdi mdi-eye-outline me-1"></i>Show</a> --}}
+                                        <a href="{{ route('admin.kampus.edit', $kampus->slug) }}"
                                             class="bg-sky-500 px-3 py-2 text-white rounded-xl hover:bg-sky-700"><i
                                                 class="mdi mdi-pencil-outline me-1"></i>Edit</a>
                                         <button type="button"
@@ -93,8 +93,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form
-                                                action="{{ route('admin.kampus.delete', ['kampus' => $kampus->slug]) }}"
+                                            <form action="{{ route('admin.kampus.delete', $kampus->slug) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')

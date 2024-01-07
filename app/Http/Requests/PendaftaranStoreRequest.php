@@ -25,9 +25,9 @@ class PendaftaranStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'jurusan_id' => [
+            'slugJurusan' => [
                 'required',
-                'exists:jurusans,id',
+                'exists:jurusans,slug',
             ],
         ];
     }
@@ -35,7 +35,7 @@ class PendaftaranStoreRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'jurusan_id' => 'nama jurusan',
+            'slugJurusan' => 'nama jurusan',
         ];
     }
 

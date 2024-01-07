@@ -10,7 +10,6 @@ class CreateKampus
     public function execute($request)
     {
         $slug = Str::slug($request->namaKampus, '-');
-        // create kampus
         $kampus =  Kampus::create([
             'nama' => $request->namaKampus,
             'slug' => $slug,

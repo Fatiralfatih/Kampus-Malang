@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\admin;
 
 use App\Action\CreateFakultas;
+use App\Action\CreateGambarKampus;
 use App\Action\CreateKampus;
 use App\action\CreateKontak;
-use App\Action\DeleteKampusBySlug;
-use App\Action\RestoreKampusById;
-use App\Action\UpdateKampusBySlug;
+use App\Action\DeleteKampus;
+use App\Action\GetHistoryKampusBySlug;
+use App\Action\GetKampusBySlug;
+use App\Action\GetPaginatedKampus;
+use App\Action\RestoreKampus;
+use App\Action\UpdateKampus;
 use App\Models\Kampus;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -18,23 +22,10 @@ class KampusController extends Controller
 {
     function index()
     {
-        $kampus = Kampus::select(['id', 'nama', 'alamat', 'kategori', 'slug'])
-            ->withCount(['Fakultas', 'jurusan'])
-            ->orderBy('kategori', 'desc')
-            ->paginate(10);
+        $kampus = app(GetPaginatedKampus::class)->execute();
 
         return view('admin.kampus.index', [
             'kampuses' => $kampus
-        ]);
-    }
-
-    function show(Kampus $kampus)
-    {
-        $dataKampus = $kampus->load(['kontak', 'gambar']);
-        $fakultas = $kampus->Fakultas()->with(['jurusan'])->get();
-        return view('admin.kampus.show', [
-            'kampus' => $dataKampus,
-            'fakultases' => $fakultas,
         ]);
     }
 
@@ -47,76 +38,92 @@ class KampusController extends Controller
     {
         try {
             $kampus = app(CreateKampus::class)->execute($request);
+
             app(CreateKontak::class)->execute($request, $kampus);
+
             app(CreateFakultas::class)->execute($request, $kampus);
+
+            app(CreateGambarKampus::class)->execute($request, $kampus);
+
             return redirect()->route('admin.kampus')->with('success', 'kampus berhasil ditambahkan');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed: data gagal ditambahkan');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
-    function edit(Kampus $kampus)
+    function edit($slug)
     {
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
+
         return view('admin.kampus.edit', [
             'kampus' =>  $kampus,
         ]);
     }
 
-    function update(KampusUpdateRequest $request, Kampus $kampus,)
+    function update($slug, KampusUpdateRequest $request)
     {
         try {
-            app(UpdateKampusBySlug::class)->execute($request, $kampus);
+            $kampus = app(GetKampusBySlug::class)->execute($slug);
+
+            app(UpdateKampus::class)->execute($request, $kampus);
 
             return redirect()->route('admin.kampus')->with('success', 'Kampus berhasil di update');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed: data gagal diupdate');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
-    function delete(Kampus $kampus)
+    function delete($slug)
     {
         try {
-            app(DeleteKampusBySlug::class)->execute($kampus);
-            return redirect()->route('admin.kampus')->with('error', 'kampus ' . $kampus->nama . ' berhasil dihapus');
+            $kampus = app(GetKampusBySlug::class)->execute($slug);
+
+            app(DeleteKampus::class)->execute($kampus);
+
+            return redirect()->route('admin.kampus')->with('success', 'kampus ' . $kampus->nama . ' berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed: data gagal dihapus');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
     function history()
     {
         $kampus = Kampus::onlyTrashed()->paginate(10);
+
         return view('admin.kampus.history', [
             'kampuses' => $kampus
         ]);
     }
 
-    function restore($id)
+    function restore($slug)
     {
         try {
 
-            $kampusId = Kampus::where('id', $id)->withTrashed()->firstOrFail();
-            app(RestoreKampusById::class)->execute($kampusId);
+            $slugKampus = app(GetHistoryKampusBySlug::class)->execute($slug);
 
-            return redirect()->back()->with('success', 'Data kampus' . $kampusId->nama . 'Berhasil di restore');
+            app(RestoreKampus::class)->execute($slugKampus);
+
+            return redirect()->back()->with('success', 'Data kampus' . $slugKampus->nama . 'Berhasil di restore');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'error', 'Failed: data gagal direstore');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
-    function forceDelete($id)
+    function forceDelete($slug)
     {
         try {
-            $kampus = Kampus::where('id', $id)->withTrashed()->firstOrFail();
+            $kampus = app(GetHistoryKampusBySlug::class)->execute($slug);
+
             if ($kampus->gambar) {
                 foreach ($kampus->Gambar as $gambar) {
                     Storage::delete($gambar->gambar);
                 }
             }
             $kampus->forceDelete();
-            return redirect()->back()->with('error', 'kampus ' . $kampus->nama . ' berhasil dihapus permanen');
+
+            return redirect()->back()->with('success', 'kampus ' . $kampus->nama . ' berhasil dihapus permanen');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'error', 'Failed: data gagal dihapus permanen');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

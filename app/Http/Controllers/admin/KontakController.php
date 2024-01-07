@@ -2,39 +2,40 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\action\CreateKontak;
+use App\Action\GetKampusBySlug;
+use App\Action\UpdateKontak;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KampusKontakStoreRequest;
 use App\Http\Requests\KampusUpdateKontakRequest;
-use App\Models\Kampus;
-
 class KontakController extends Controller
 {
 
-    function navItem(Kampus $kampus) {
-        return view('admin.kampus.kontak.navItem',[
+    function navItem($slug)
+    {
+
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
+
+        return view('admin.kampus.kontak.navItem', [
             'kampus' => $kampus,
         ]);
     }
 
-    function store( Kampus $kampus, KampusKontakStoreRequest $request)
+    function store($slug, KampusKontakStoreRequest $request)
     {
-        $kampus->Kontak()->create([
-            'email' => $request->email,
-            'telepon' => $request->telepon,
-            'whatsapp' => $request->whatsapp
-        ]);
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
 
-        return redirect()->back()->with('success', 'Kampus ' . $kampus->nama . ' berhasil di tambah kontak');
+        app(CreateKontak::class)->execute($request, $kampus);
+
+        return redirect()->back()->with('success', 'Kampus berhasil di tambah kontak');
     }
 
-    function update(Kampus $kampus, KampusUpdateKontakRequest $request)
+    function update($slug, KampusUpdateKontakRequest $request)
     {
-        $kampus->Kontak()->update([
-            'email' => $request->email,
-            'telepon' => $request->telepon,
-            'whatsapp' => $request->whatsapp
-        ]);
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
 
-        return redirect()->back()->with('success', 'Kampus ' . $kampus->nama . ' berhasil di update kontak');
+        app(UpdateKontak::class)->execute($kampus, $request);
+
+        return redirect()->back()->with('success', 'Kampus berhasil di update kontak');
     }
 }

@@ -6,10 +6,10 @@ use Illuminate\Support\Str;
 
 class CreateJurusan
 {
-    function execute($request, $kampus)
+    function execute($kampus, $request)
     {
         $slug = Str::slug($request->nama . '-' . $kampus->nama, '-');
-        $fakultases = $kampus->Fakultas()->where('slug', $request->fakultasSlug)->select(['id', 'kampus_id'])->get();
+        $fakultases = $kampus->Fakultas()->where('slug', $request->fakultasSlug)->get();
         foreach ($fakultases as $fakultas) {
             $kampus->Jurusan()->create([
                 'fakultas_id' => $fakultas->id,

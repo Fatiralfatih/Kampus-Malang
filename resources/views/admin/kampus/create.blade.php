@@ -5,7 +5,7 @@
             <div class="col-xl">
                 <div class="card mb-4">
                     <h5 class="card-header text-lg font-medium">Form Tambah Kampus</h5>
-                    <form class="card-body" action="{{ route('admin.kampus.store') }}" method="POST">
+                    <form class="card-body" action="{{ route('admin.kampus.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <h6 class="mb-3">1. Kampus</h6>
                         <div class="row g-4">
@@ -63,13 +63,6 @@
                                 </x-form.input>
                                 <x-input-error :messages="$errors->get('namaFakultas')" class="mt-2" />
                             </div>
-                            {{-- jurusan --}}
-                            {{-- <div class="col-md-6">
-                                <x-form.input nama="namaJurusan" placeholder="masukkan nama Jurusan kampus">
-                                    Nama Jurusan
-                                </x-form.input>
-                                <x-input-error :messages="$errors->get('namaJurusan')" class="mt-2" />
-                            </div> --}}
                             <div class="col-md-6">
                                 <x-form.textarea nama="tentangFakultas" placeholder="masukkan tentang fakultas">
                                     {{ old('tentangFakultas') }}
@@ -103,19 +96,22 @@
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                             <div class="col-md-6">
-                                <x-form.input nama="telepon" type="text" placeholder="masukkan telepon kampus">
+                                <x-form.input nama="telepon" type="tel" placeholder="masukkan telepon kampus">
                                     Telepon
                                 </x-form.input>
                                 <x-input-error :messages="$errors->get('telepon')" class="mt-2" />
                             </div>
 
                             <div class="col-md-6">
-                                <x-form.input nama="whatsapp" type="text" placeholder="masukkan whatapps kampus">
+                                <x-form.input nama="whatsapp" type="tel" placeholder="masukkan whatapps kampus">
                                     Whatapps
                                 </x-form.input>
                                 <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
                             </div>
 
+                            <h6>4. Gambar</h6>
+                            <input type="file" name="thumbnail_id"  >
+                            <x-input-error :messages="$errors->get('thumbnail_id')" class="mt-2" />
                             <div class="pt-4 space-x-4">
                                 <a href="{{ route('admin.kampus') }}"
                                     class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">Cancel</a>

@@ -115,7 +115,7 @@
                                                 </div>
                                             </div>
                                             <form
-                                                action="{{ route('admin.fakultas.delete.permanen', [$fakultas->id]) }}"
+                                                action="{{ route('admin.fakultas.delete.permanen', [$fakultas->slug]) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')
@@ -149,14 +149,10 @@
                     </tbody>
 
                 </table>
-                <div class="flex justify-end me-5 mt-4">
+                <div class="flex justify-end me-5">
                     <div class="flex justify-end">
-                        <a href="{{ route('admin.fakultas', ['kampus' => $kampus->slug]) }}"
-                            class="btn btn-primary">Kembali</a>
+                        <a href="{{ route('admin.fakultas', $kampus->slug) }}" class="btn btn-primary">Kembali</a>
                     </div>
-                </div>
-                <div class="flex justify-center mb-4">
-                    {{-- {!! $fakultases->render() !!} --}}
                 </div>
             </div>
 

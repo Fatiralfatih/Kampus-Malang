@@ -3,15 +3,18 @@
 namespace App\Action;
 
 use App\Models\Fakultas;
-use App\Models\Jurusan;
 use Illuminate\Support\Str;
 
-class UpdateJurusanBySlug
+class UpdateJurusan
 {
     function execute($request, $jurusan)
     {
-        $fakultas = Fakultas::where('slug', $request->fakultasSlug)->with(['kampus'])->firstOrFail();
+        // $fakultas = Fakultas::where('slug', $request->fakultasSlug)
+        //     ->with(['kampus'])
+        //     ->firstOrFail();
 
+        $fakultas = app(GetFakultasBySlug::class)->execute($request->fakultasSlug);
+        
         $slug = Str::slug($request->namaJurusan . '-' . $fakultas->kampus->nama, '-');
 
         return $jurusan->update([
@@ -20,7 +23,5 @@ class UpdateJurusanBySlug
             'slug' => $slug,
             'status' => $request->statusJurusan
         ]);
-
-        
     }
 }

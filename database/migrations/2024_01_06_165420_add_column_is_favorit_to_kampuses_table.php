@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gambar_kampus', function (Blueprint $table) {
-            $table->id();
-            $table->foreignUuid('kampus_id')->constrained()->cascadeOnDelete();
-            $table->string('gambar')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('kampuses', function (Blueprint $table) {
+            $table->boolean('isFavorit')->after('kategori')->default(0);
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gambar_kampus');
+        Schema::table('kampuses', function (Blueprint $table) {
+            $table->dropColumn('isFavorit');
+        });
     }
 };

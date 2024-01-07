@@ -23,8 +23,8 @@ class KampusUpdateKontakRequest extends FormRequest
     {
         return [
             'email' => 'required|email|max:255',
-            'telepon' => 'required|numeric',
-            'whatsapp' => 'required|numeric',
+            'telepon' => 'required',
+            'whatsapp' => 'required',
         ];
     }
 

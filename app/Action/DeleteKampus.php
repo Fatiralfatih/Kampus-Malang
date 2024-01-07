@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-class DeleteKampusBySlug
+class DeleteKampus
 {
     public function execute($kampus)
     {

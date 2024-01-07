@@ -12,7 +12,7 @@
                         <h5 class="card-header text-lg font-medium uppercase">Tambah Fakultas Kampus {{ $kampus->nama }}
                         </h5>
                         <div class="card-body">
-                            <form action="{{ route('admin.fakultas.store', ['kampus' => $kampus->slug]) }}" method="POST"
+                            <form action="{{ route('admin.fakultas.store', $kampus->slug) }}" method="POST"
                                 class="row g-3">
                                 @csrf
                                 <!-- Account Details -->
@@ -63,35 +63,6 @@
                                         Simpan
                                     </button>
                                 </div>
-                                {{-- next modal kampus --}}
-                                {{-- <div class="modal fade" id="next-fakultas{{ $kampus->slug }}" tabindex="-1"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="modalCenterTitle">Tambah Jurusan </h4>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col mb-4 mt-2">
-                                                        <div class="form-floating form-floating-outline">
-                                                            <h4>Tambah Jurusan?</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit"
-                                                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">Tidak</button>
-                                                <a href="{{ route('admin.jurusan.create', $kampus->slug) }}"
-                                                    class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Iya</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                {{-- end modal kampus --}}
                             </form>
                         </div>
                     </div>

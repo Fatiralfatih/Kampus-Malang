@@ -23,11 +23,6 @@ class Jurusan extends Model
         'status',
     ];
 
-    function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
     function fakultas()
     {
         return $this->belongsTo(Fakultas::class, 'fakultas_id');

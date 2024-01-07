@@ -24,7 +24,7 @@ class MahasiswaController extends Controller
 
             return redirect()->back()->with('success', 'berhasil menerima mahasiswa');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error: data tidak valid!!');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ class MahasiswaController extends Controller
 
             return redirect()->back()->with('success', 'berhasil menolak mahasiswa');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error: data tidak valid!!');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

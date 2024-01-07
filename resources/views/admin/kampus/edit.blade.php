@@ -9,7 +9,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.kampus.edit', $kampus->slug) }}"
-                                        class="nav-link {{ Request::is('admin/kampus/edit/' . $kampus->slug) ? 'active' : '' }} ">
+                                        class="nav-link {{ Request::is('admin/kampus/' . $kampus->slug. '/edit') ? 'active' : '' }} ">
                                         Edit Kampus
                                     </a>
                                 </li>

@@ -7,10 +7,8 @@ use App\Models\User;
 class UpdateMemberStatusById
 {
 
-    function execute($status, $id)
+    function execute($status, $user)
     {
-        $user = User::where('id', $id)->firstOrFail();
-
         return $user->update([
             'status' => $status,
         ]);

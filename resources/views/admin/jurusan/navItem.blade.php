@@ -48,7 +48,7 @@
                                                     {{ $kampus->nama }} </h5>
                                             </div>
                                             <div class="card-header col-sm text-end">
-                                                <a href="{{ route('admin.jurusan.create', ['kampus' => $kampus->slug]) }}"
+                                                <a href="{{ route('admin.jurusan.create', $kampus->slug) }}"
                                                     class="bg-sky-500 px-2 py-2 rounded-lg uppercase text-white hover:bg-sky-700">Tambah
                                                     Jurusan</a>
                                                 <a href="{{ route('admin.jurusan.history', $kampus->slug) }}"
@@ -152,7 +152,7 @@
 
                                                             <div class="mt-3">
                                                                 <h3>
-                                                                    Fakultas {{ ucwords($jurusan->fakultas->nama) }}
+                                                                     {{ ucwords($jurusan->fakultas->nama) }}
                                                                 </h3>
                                                             </div>
                                                         </div>

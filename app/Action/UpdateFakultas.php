@@ -4,9 +4,9 @@ namespace App\Action;
 
 use Illuminate\Support\Str;
 
-class UpdateFakultasBySlug
+class UpdateFakultas
 {
-    function execute($request, $fakultas)
+    function execute($fakultas, $request)
     {
         $slug = Str::slug($request->nama . '-' . $fakultas->kampus->nama, '-');
         return $fakultas->update([

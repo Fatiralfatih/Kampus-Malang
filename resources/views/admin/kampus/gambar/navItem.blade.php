@@ -75,7 +75,18 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="mt-4">
+                                                        <div class="mt-4 space-y-2">
+                                                            <form
+                                                                action="{{ route('admin.gambar.thumbnail', $kampus->slug) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <input type="hidden" name="thumbnail_id"
+                                                                    value="{{ $gambar->id }}">
+                                                                <x-primary-button>
+                                                                    Jadikan Thumbnail kalo mau
+                                                                </x-primary-button>
+                                                            </form>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#edit-gambar{{ $gambar->id }}"
                                                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">Edit</button>
@@ -188,11 +199,11 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <form
-                                                                action="{{ route('admin.tambah.gambar.kampus', ['kampus' => $kampus->slug]) }}"
+                                                                action="{{ route('admin.tambah.gambar.kampus', $kampus->slug) }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="row">
-                                                                    <input type="file" name="gambar[]">
+                                                                    <input type="file" name="gambar" required>
                                                                 </div>
 
                                                                 <div class="modal-footer">

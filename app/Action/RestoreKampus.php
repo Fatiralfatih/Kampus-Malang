@@ -5,7 +5,7 @@ namespace App\Action;
 use App\Models\Jurusan;
 use App\Models\Kampus;
 
-class RestoreKampusById
+class RestoreKampus
 {
 
     function execute($kampus)

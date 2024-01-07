@@ -74,7 +74,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form action="{{ route('admin.jurusan.restore', [$jurusan->id]) }}"
+                                            <form action="{{ route('admin.jurusan.restore', [$jurusan->slug]) }}"
                                                 method="post">
                                                 @csrf
                                                 <div class="modal-footer">
@@ -112,7 +112,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form action="{{ route('admin.jurusan.delete.permanen', [$jurusan->id]) }}"
+                                            <form action="{{ route('admin.jurusan.delete.permanen', $jurusan->slug) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')

@@ -27,12 +27,9 @@ class Kampus extends Model
         'alamat',
         'akreditasi',
         'kategori',
+        'isFavorit',
+        'thumbnail_id',
     ];
-
-    function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     function scopeFilter($query, array $filters)
     {
