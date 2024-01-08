@@ -29,6 +29,27 @@ class KampusController extends Controller
         ]);
     }
 
+    function favorit($slug)
+    {
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
+        $kampus->update([
+            'isFavorit' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil jadikan kampus terfavorit dan terpopuler');
+    }
+
+    function nonFavorit($slug)
+    {
+        $kampus = app(GetKampusBySlug::class)->execute($slug);
+
+        $kampus->update([
+            'isFavorit' => 0
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil menghapus kampus terfavorit dan terpopuler');
+    }
+
     function create()
     {
         return view('admin.kampus.create');
@@ -43,7 +64,7 @@ class KampusController extends Controller
 
             app(CreateFakultas::class)->execute($request, $kampus);
 
-            app(CreateGambarKampus::class)->execute($request, $kampus);
+            app(CreateGambarKampus::class)->execute($request['gambar']->store('gambar/kampus'), $kampus);
 
             return redirect()->route('admin.kampus')->with('success', 'kampus berhasil ditambahkan');
         } catch (\Exception $e) {

@@ -15,11 +15,11 @@
                 </div>
                 <div class="hero-content md:flex-row-reverse flex-col max-w-full mx-auto">
                     <figure class="h-15 md:aspect-video lg:min-w-[600px]">
-                        @forelse ($kampus->Gambar as $gambar)
-                            <img src="{{ asset('storage/' . $gambar->gambar) }}" class="w-full rounded-lg shadow-2xl" />
-                        @empty
+                        @empty(!$kampus->gambar->first()->gambar)
+                            <img src="{{ asset('storage/' . $kampus->gambar->first()->gambar) }}" class="w-full rounded-lg shadow-2xl" />
+                        @else
                             <p class="uppercase text-red-600 self-center">tidak ada gambar</p>
-                        @endforelse
+                        @endempty
                     </figure>
                     <div class="md:pt-3 lg:flex-row-reverse lg:ps-0 md:ps-4 sm:ps-6 w-full">
                         <h1 class="text-[30px] lg:text-[35px] font-bold text-start capitalize">
@@ -54,7 +54,8 @@
                             {{-- end email --}}
 
                             {{-- telepon --}}
-                            <a href="https://play.google.com/store/apps/details?id=v.d.d.answercall&hl=id&gl=US&pli=1" target="_blank"
+                            <a href="https://play.google.com/store/apps/details?id=v.d.d.answercall&hl=id&gl=US&pli=1"
+                                target="_blank"
                                 class="h-7 border-slate-300 hover:border-green-600 hover:text-green-600 flex items-center justify-center w-6 rounded-full">
                                 <ion-icon name="call-outline" size="large"></ion-icon>
                             </a>
@@ -90,7 +91,8 @@
             <div class="container">
                 <div class="min-h-[500px]">
                     <div class="flex justify-center ps-3 ">
-                        <h2 class="font-bold text-xl md:text-2xl self-center capitalize ">Daftar Fakultas {{ $kampus->nama }}</h2>
+                        <h2 class="font-bold text-xl md:text-2xl self-center capitalize ">Daftar Fakultas
+                            {{ $kampus->nama }}</h2>
                     </div>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-4 mt-4 md:mt-6">
                         @forelse ($kampus->Fakultas as $fakultas)
@@ -129,7 +131,8 @@
                             </div>
                         @empty
                             <div class="min-w-[1300px]">
-                                <p class="flex justify-center mx-auto text-red-500 uppercase font-medium">tidak ada fakultas</p>
+                                <p class="flex justify-center mx-auto text-red-500 uppercase font-medium">tidak ada
+                                    fakultas</p>
                             </div>
                         @endforelse
                     </div>

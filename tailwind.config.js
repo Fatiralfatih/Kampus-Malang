@@ -28,7 +28,7 @@ export default {
             },
         },
     },
-    plugins: [require("daisyui"), 'prettier-plugin-tailwindcss'],
+    plugins: [require("daisyui"), require('@tailwindcss/forms')],
     daisyui: {
         themes: ["light", "dark" ], 
         darkTheme: 'light',

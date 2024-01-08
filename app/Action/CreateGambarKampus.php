@@ -4,10 +4,10 @@ namespace App\Action;
 
 class CreateGambarKampus
 {
-    function execute($kampus, $thumbnail)
+    function execute($thumbnail, $kampus)
     {
         return $kampus->Gambar()->create([
-            'gambar' => $thumbnail,
+            'gambar' => $thumbnail->store('gambar/kampus'),
         ]);
     }
 }

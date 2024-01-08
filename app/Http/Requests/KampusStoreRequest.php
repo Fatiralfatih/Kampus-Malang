@@ -46,7 +46,7 @@ class KampusStoreRequest extends FormRequest
             'whatsapp' => 'required|unique:kontaks,whatsapp',
             
             // gambar
-            'thumbnail_id' => ['nullable', 'image', 'mimes:png,jpg'],
+            'gambar' => ['nullable', 'image', 'mimes:png,jpg'],
         ];
     }
 
@@ -77,7 +77,7 @@ class KampusStoreRequest extends FormRequest
             'whatsapp' => 'whatsapp kampus',
 
             // gambar
-            'thumbnail_id' => 'gambar kampus'
+            'gambar' => 'gambar kampus'
         ];
     }
 

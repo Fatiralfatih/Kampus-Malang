@@ -23,20 +23,20 @@ class GambarKampusController extends Controller
         ]);
     }
 
-    function thumbnail($slug, GambarKampusRequest $request)
-    {
-        $kampus = app(GetKampusBySlug::class)->execute($slug);
+    // function thumbnail($slug, GambarKampusRequest $request)
+    // {
+    //     $kampus = app(GetKampusBySlug::class)->execute($slug);
 
-        app(CreateThumbnailKampus::class)->execute($kampus, $request['thumbnail_id']);
+    //     app(CreateThumbnailKampus::class)->execute($kampus, $request['thumbnail_id']);
 
-        return redirect()->back()->with('success', 'berhasil jadikan thumbnail');
-    }
+    //     return redirect()->back()->with('success', 'berhasil jadikan thumbnail');
+    // }
 
     function store($slug, GambarKampusRequest $request)
     {
         $kampus = app(GetKampusBySlug::class)->execute($slug);
 
-        app(CreateGambarKampus::class)->execute($kampus, $request->gambar->store('gambar/kampus'));
+        app(CreateGambarKampus::class)->execute($request['gambar'], $kampus);
 
         return redirect()->back()->with('success', 'Gambar Berhasil di tambahkan');
     }
@@ -66,7 +66,7 @@ class GambarKampusController extends Controller
     }
 
     function history($slug)
-    {   
+    {
         $kampus = app(GetKampusBySlug::class)->execute($slug);
 
         $gambar = $kampus->gambar()->onlyTrashed()->get();
@@ -80,7 +80,7 @@ class GambarKampusController extends Controller
     function restore($id)
     {
         $gambar = GambarKampus::where('id', $id)->onlyTrashed()->firstOrFail();
-        
+
         $gambar->restore();
 
         return redirect()->back()->with('success', 'gambar berhasil direstore');

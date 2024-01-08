@@ -25,6 +25,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // data kampus for admin
     Route::prefix('admin/kampus')->group(function () {
         Route::get('/', [KampusController::class, 'index'])->name('admin.kampus');
+        Route::post('/{slug}/favorit', [KampusController::class , 'favorit'])->name('admin.kampus.favorit');
+        Route::post('/{slug}/non-favorit', [KampusController::class , 'nonFavorit'])->name('admin.kampus.non.favorit');
         Route::get('/create', [KampusController::class, 'create'])->name('admin.kampus.create');
         Route::post('/store', [KampusController::class, 'store'])->name('admin.kampus.store');
         Route::get('/{slug}/edit', [KampusController::class, 'edit'])->name('admin.kampus.edit');
@@ -44,7 +46,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/kampus/{slug}/history', [GambarKampusController::class, 'history'])->name('admin.history.gambar.kampus');
         Route::post('/restore/{id}', [GambarKampusController::class, 'restore'])->name('admin.restore.gambar.kampus');
         Route::delete('/{id}/delete-permanen', [GambarKampusController::class, 'forceDelete'])->name('admin.delete.permanen.gambar.kampus');
-        Route::put('/{kampus}/thumbnail', [GambarKampusController::class, 'thumbnail'])->name('admin.gambar.thumbnail');
     });
 
     // Data kontak for admin

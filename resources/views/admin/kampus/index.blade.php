@@ -59,10 +59,22 @@
                                 <td class="truncate max-w-[200px]">{{ $kampus->alamat }}</td>
                                 <td>{{ ucwords($kampus->kategori) }}</td>
                                 <td>
-                                    <div class="flex space-x-3 justify-center">
-                                        {{-- <a href="{{ route('admin.kampus.show', $kampus->slug) }}"
-                                            class="bg-gray-500 px-3 py-2 text-white rounded-xl hover:bg-gray-700"><i
-                                                class="mdi mdi-eye-outline me-1"></i>Show</a> --}}
+                                    <div class="flex space-x-3 justify-center items-center">
+                                        @if ($kampus->isFavorit)
+                                            <button type="button"
+                                                class="bg-pink-500 px-3 py-2 text-white rounded-xl hover:bg-pink-700"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#non-favorit-kampus{{ $kampus->slug }}">
+                                                Favorit
+                                            </button>
+                                        @else
+                                            <button type="button"
+                                                class="bg-slate-300 px-3 py-2 text-white rounded-xl hover:bg-pink-500"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#favorit-kampus{{ $kampus->slug }}">
+                                                Favorit
+                                            </button>
+                                        @endif
                                         <a href="{{ route('admin.kampus.edit', $kampus->slug) }}"
                                             class="bg-sky-500 px-3 py-2 text-white rounded-xl hover:bg-sky-700"><i
                                                 class="mdi mdi-pencil-outline me-1"></i>Edit</a>
@@ -111,6 +123,80 @@
                                     </div>
                                 </div>
                                 {{-- end delete modal kampus --}}
+
+                                {{-- favorit modal kampus --}}
+                                <div class="modal fade" id="favorit-kampus{{ $kampus->slug }}" tabindex="-1"
+                                    aria-hidden="true" data-bs-backdrop="static">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="modalCenterTitle">Favorit Kampus</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col mb-4 mt-2">
+                                                        <div class="form-floating form-floating-outline">
+                                                            <h4>Ubah Kampus {{ $kampus->nama }} jadi kampus favorit ? </h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form action="{{ route('admin.kampus.favorit', $kampus->slug) }}"
+                                                method="post">
+                                                @csrf
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <x-primary-button>
+                                                        Save
+                                                    </x-primary-button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- end favorit modal kampus --}}
+
+                                {{-- non favorit modal kampus --}}
+                                <div class="modal fade" id="non-favorit-kampus{{ $kampus->slug }}" tabindex="-1"
+                                    aria-hidden="true" data-bs-backdrop="static">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="modalCenterTitle">hapus Favorit Kampus</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col mb-4 mt-2">
+                                                        <div class="form-floating form-floating-outline">
+                                                            <h4>Ubah Kampus {{ $kampus->nama }} jadi kampus tidak favorit ? </h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form action="{{ route('admin.kampus.non.favorit', $kampus->slug) }}"
+                                                method="post">
+                                                @csrf
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <x-primary-button>
+                                                        Save
+                                                    </x-primary-button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- end non favorit modal kampus --}}
                             </tr>
                         @empty
                             <tr>

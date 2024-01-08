@@ -28,7 +28,6 @@ class Kampus extends Model
         'akreditasi',
         'kategori',
         'isFavorit',
-        'thumbnail_id',
     ];
 
     function scopeFilter($query, array $filters)

@@ -14,9 +14,11 @@ class PengunjungController extends Controller
 {
     function dashboard()
     {
-        $kampus = Kampus::with(['gambar'])->filter(request(['search', 'cari-jurusan']))->latest()->paginate(10);
-        $kampusFavorit = Kampus::take(4)->get();
-        
+        $kampus = Kampus::with(['gambar'])
+            ->filter(request(['search', 'cari-jurusan']))
+            ->latest()->paginate(10);
+        $kampusFavorit = Kampus::where('isFavorit', 1)->with(['gambar'])->take(4)->get();
+
         return view('pengunjung.dashboard', [
             'kampuses' => $kampus,
             'kampusFavorit' => $kampusFavorit,
@@ -24,7 +26,7 @@ class PengunjungController extends Controller
     }
 
     function detailKampus($slug)
-    {   
+    {
         $kampus = Kampus::where('slug', $slug)
             ->with(['fakultas', 'gambar'])
             ->firstOrfail();
@@ -47,9 +49,9 @@ class PengunjungController extends Controller
     }
 
     function detailFakultas($slug)
-    {   
+    {
         $fakultas = Fakultas::where('slug', $slug)->firstOrFail();
-        
+
         return view('pengunjung.fakultas.detail', [
             'fakultas' => $fakultas,
         ]);
@@ -58,11 +60,10 @@ class PengunjungController extends Controller
     function pendaftaran(PendaftaranStoreRequest $request)
     {
         $jurusan = Jurusan::where('slug', $request->slugJurusan)->firstOrFail();
-        $jurusan->pendaftaran()->attach(Auth::id(),[
+        $jurusan->pendaftaran()->attach(Auth::id(), [
             'status' => 'pending',
         ]);
 
         return redirect()->back()->with('success', 'Berhasil Mendaftar!');
     }
-
 }
