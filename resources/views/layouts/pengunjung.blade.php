@@ -14,8 +14,8 @@
 <body class="dark:bg-gray-950 dark:text-slate-200">
     <!-- navbar -->
     <header
-        class="bg-slate-300 dark:bg-gray-950 dark:text-white dark:rounded-none fixed top-0 left-0 z-10 flex items-center w-full rounded-b-lg">
-        <div class="container">
+        class=" fixed top-0 left-0 z-10 flex items-center w-full ">
+        <div class="container bg-slate-300 dark:bg-gray-950 rounded-b-lg dark:text-white dark:rounded-none">
             <div class="navbar rounded-lg">
                 <div class="flex-1">
                     <a href="{{ route('pengunjung.dashboard') }}"
