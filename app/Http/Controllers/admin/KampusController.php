@@ -77,7 +77,7 @@ class KampusController extends Controller
         $kampus = app(GetKampusBySlug::class)->execute($slug);
 
         return view('admin.kampus.edit', [
-            'kampus' =>  $kampus,
+            'kampus' => $kampus,
         ]);
     }
 

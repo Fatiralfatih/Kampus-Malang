@@ -13,9 +13,8 @@
 
 <body class="dark:bg-gray-950 dark:text-slate-200">
     <!-- navbar -->
-    <header
-        class=" fixed top-0 left-0 z-10 flex items-center w-full ">
-        <div class="container bg-slate-300 dark:bg-gray-950 rounded-b-lg dark:text-white dark:rounded-none">
+    <header class=" fixed top-0 left-0 z-10 flex items-center w-full ">
+        <div class="w-full px-12 bg-slate-300 dark:bg-gray-950 rounded-b-lg dark:text-white dark:rounded-none">
             <div class="navbar rounded-lg">
                 <div class="flex-1">
                     <a href="{{ route('pengunjung.dashboard') }}"
@@ -56,7 +55,7 @@
                                         <ion-icon name="person-outline" size="small"></ion-icon>
                                         <div class="flex-grow-1">
                                             <span>
-                                                {{Auth::user()->nama}}
+                                                {{ Auth::user()->nama }}
                                             </span><br>
                                             <small class="text-slate-400">
                                                 {{ Auth::user()->role }}

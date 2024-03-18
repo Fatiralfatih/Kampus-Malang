@@ -10,12 +10,12 @@
                     Platform to find University in Malang dan
                 </h3>
                 <h4 class="text-center font-sans text-[15px] md:text-[20px] lg:text-[25px]">
-                    Jadilah Mahasiswa Cogil 🚀
+                    Jadilah Mahasiswa Terbaik 🚀
                 </h4>
                 <div class="mt-5 text-center">
                     <div class="justify-between">
                         <button class="px-3 py-1 text-[15px] shadow__btn rounded-md bg-indigo-600 md:text-[20px]">
-                            #CARICEGIL🧚‍♀️
+                            #CARIILMU
                         </button>
                     </div>
                 </div>
